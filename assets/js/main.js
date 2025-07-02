@@ -1437,3 +1437,8 @@ window.PortfolioApp = {
   currentTheme: () => currentTheme,
   currentSlide: () => currentSlide,
 };
+
+
+document.addEventListener("contextmenu", function (event) {
+  event.preventDefault();
+});

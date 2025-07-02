@@ -1439,6 +1439,21 @@ window.PortfolioApp = {
 };
 
 
-document.addEventListener("contextmenu", function (event) {
-  event.preventDefault();
-});
+// Function to prevent right-click context menu
+function preventRightClick() {
+  document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+  });
+}
+
+// Call the function to activate right-click prevention
+preventRightClick();
+
+// Alternative: One-liner version
+// document.addEventListener('contextmenu', e => e.preventDefault());
+
+// To remove the prevention later (optional)
+function enableRightClick() {
+  document.removeEventListener('contextmenu', preventRightClick);
+}

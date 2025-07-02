@@ -559,7 +559,7 @@ body[data-lang="en"] .content[data-lang="en"] {
 
 .portfolio-slider {
     position: relative;
-    width: 100%;
+    width: unset;
     height: 500px;
     perspective: 1200px;
     overflow: hidden;
@@ -1612,7 +1612,7 @@ body[data-lang="en"] .floating-contact {
 
     /* Portfolio Slider Extra Small */
     .portfolio-slider {
-        height: 350px;
+        height: 348px;
     }
 
     .slider-slide {

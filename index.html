@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hossam Hamed - Portfolio</title>
+    <meta name="description" content="حسام حامد - مطور Frontend و WordPress متخصص في بناء المواقع والمتاجر الإلكترونية">
+    <meta name="keywords" content="مطور مواقع, WordPress, Frontend Developer, متاجر إلكترونية">
+    <meta name="author" content="Hossam Hamed">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body data-lang="ar" data-theme="dark">
+    <!-- Navigation Controls -->
+    <div class="top-controls">
+        <!-- Language Switcher -->
+        <div class="simple-language-switcher">
+            <button class="lang-btn" data-lang="ar" id="langBtnAr" title="العربية">
+                <span class="lang-text">AR</span>
+            </button>
+            <button class="lang-btn" data-lang="en" id="langBtnEn" title="English">
+                <span class="lang-text">EN</span>
+            </button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <div class="simple-theme-toggle">
+            <button class="theme-btn" id="themeBtnDark" data-theme="dark" title="الوضع المظلم / Dark Mode">
+                <span class="theme-icon">🌙</span>
+            </button>
+            <button class="theme-btn" id="themeBtnLight" data-theme="light" title="الوضع المضيء / Light Mode">
+                <span class="theme-icon">☀️</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-canvas"></div>
+    <div class="bg-grid"></div>
+
+    <div class="container">
+        <!-- Hero Section - Arabic -->
+        <section class="hero-section content" data-lang="ar">
+            <div class="hero-content">
+                <div class="profile-container">
+                    <div class="profile-ring"></div>
+                    <div class="profile-img">
+                        <img src="assets/images/profile.jpg" alt="حسام حامد" loading="eager" />
+                    </div>
+                </div>
+
+                <h1 class="main-title" id="nameTextAr">حسام حامد</h1>
+                <div class="static-text">مطور Frontend و WordPress متخصص</div>
+
+                <p class="hero-description">
+                    مطور Frontend و WordPress متخصص في تحويل الأفكار إلى مواقع ومتاجر إلكترونية احترافية.
+                    أساعد الشركات والأفراد في بناء حضورهم الرقمي من خلال حلول تقنية مبتكرة ومتجاوبة.
+                </p>
+            </div>
+        </section>
+
+        <!-- Hero Section - English -->
+        <section class="hero-section content" data-lang="en">
+            <div class="hero-content">
+                <div class="profile-container">
+                    <div class="profile-ring"></div>
+                    <div class="profile-img">
+                        <img src="assets/images/profile.jpg" alt="Hossam Hamed" loading="eager" />
+                    </div>
+                </div>
+
+                <h1 class="main-title" id="nameTextEn">Hossam Hamed</h1>
+                <div class="static-text">Frontend & WordPress Developer</div>
+
+                <p class="hero-description">
+                    Frontend & WordPress Developer specialized in transforming ideas into professional websites and
+                    e-commerce stores. I help businesses and individuals build their digital presence through innovative
+                    and responsive technical solutions.
+                </p>
+            </div>
+        </section>
+
+        <!-- About Section - Arabic -->
+        <section class="content-section content" data-lang="ar">
+            <h2 class="section-title">تخصصي وخبرتي</h2>
+            <div class="cards-grid">
+                <div class="glass-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Frontend Development</h3>
+                    <p class="card-description">
+                        متخصص في تطوير الواجهات الأمامية باستخدام HTML5, CSS3, JavaScript وأحدث المكتبات.
+                        أركز على إنشاء تجارب مستخدم سلسة ومتجاوبة عبر جميع الأجهزة والمتصفحات.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">Tailwind</span>
+                        <span class="tech-tag">GSAP</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3 class="card-title">WordPress Development</h3>
+                    <p class="card-description">
+                        خبير في تطوير وتخصيص مواقع WordPress من البداية، إنشاء القوالب المخصصة،
+                        وتطوير الإضافات التي تلبي احتياجات العملاء الفريدة.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">Custom Themes</span>
+                        <span class="tech-tag">Plugins</span>
+                        <span class="tech-tag">WooCommerce</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">🛒</div>
+                    <h3 class="card-title">E-commerce Solutions</h3>
+                    <p class="card-description">
+                        أطور متاجر إلكترونية احترافية على منصات متعددة مع تكامل أنظمة الدفع،
+                        إدارة المخزون، وتحسين معدلات التحويل لزيادة المبيعات.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">WooCommerce</span>
+                        <span class="tech-tag">Shopify</span>
+                        <span class="tech-tag">سلة</span>
+                        <span class="tech-tag">زد</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">🚀</div>
+                    <h3 class="card-title">Performance & Animation</h3>
+                    <p class="card-description">
+                        أحسن أداء المواقع لتحقيق أسرع أوقات تحميل، وأضيف حركات وتأثيرات بصرية متطورة
+                        لتحسين تجربة المستخدم وجعل الموقع أكثر تفاعلاً وجاذبية.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">GSAP Animations</span>
+                        <span class="tech-tag">CSS Animations</span>
+                        <span class="tech-tag">Performance</span>
+                        <span class="tech-tag">Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section - English -->
+        <section class="content-section content" data-lang="en">
+            <h2 class="section-title">My Expertise & Experience</h2>
+            <div class="cards-grid">
+                <div class="glass-card">
+                    <div class="card-icon">🎨</div>
+                    <h3 class="card-title">Frontend Development</h3>
+                    <p class="card-description">
+                        Specialized in frontend development using HTML5, CSS3, JavaScript and the latest libraries.
+                        I focus on creating smooth and responsive user experiences across all devices and browsers.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">Tailwind</span>
+                        <span class="tech-tag">GSAP</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">⚙️</div>
+                    <h3 class="card-title">WordPress Development</h3>
+                    <p class="card-description">
+                        Expert in developing and customizing WordPress websites from scratch, creating custom templates,
+                        and developing plugins that meet unique client needs.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">Custom Themes</span>
+                        <span class="tech-tag">Plugins</span>
+                        <span class="tech-tag">WooCommerce</span>
+                        <span class="tech-tag">REST API</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">🛒</div>
+                    <h3 class="card-title">E-commerce Solutions</h3>
+                    <p class="card-description">
+                        I develop professional e-commerce stores on multiple platforms with payment system integration,
+                        inventory management, and conversion rate optimization to increase sales.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">WooCommerce</span>
+                        <span class="tech-tag">Shopify</span>
+                        <span class="tech-tag">Salla</span>
+                        <span class="tech-tag">Zid</span>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-icon">🚀</div>
+                    <h3 class="card-title">Performance & Animation</h3>
+                    <p class="card-description">
+                        I optimize website performance for faster loading times and add advanced animations and visual
+                        effects to enhance user experience and make websites more interactive and attractive.
+                    </p>
+                    <div class="card-tech">
+                        <span class="tech-tag">GSAP Animations</span>
+                        <span class="tech-tag">CSS Animations</span>
+                        <span class="tech-tag">Performance</span>
+                        <span class="tech-tag">Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills and Platforms Section - Arabic -->
+        <section class="content-section content" data-lang="ar">
+            <h2 class="section-title">التقنيات والمنصات</h2>
+            <div class="skills-platforms-container">
+                <!-- Technical Skills -->
+                <div class="skills-section">
+                    <h3 class="subsection-title">
+                        <div class="subsection-icon">⚡</div>
+                        تقنيات التطوير
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <span class="skill-icon">🌐</span>
+                            HTML5
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎨</span>
+                            CSS3
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">⚡</span>
+                            JavaScript
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">📱</span>
+                            Bootstrap
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎯</span>
+                            Tailwind CSS
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🔧</span>
+                            PHP
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🚀</span>
+                            GSAP
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎪</span>
+                            Animations
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">📐</span>
+                            Responsive Design
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platforms -->
+                <div class="platforms-section">
+                    <h3 class="subsection-title">
+                        <div class="subsection-icon">🚀</div>
+                        منصات التطوير
+                    </h3>
+                    <div class="platforms-grid">
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/wp.png" alt="WordPress" loading="lazy" />
+                            </div>
+                            WordPress
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/shop.png" alt="Shopify" loading="lazy" />
+                            </div>
+                            Shopify
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/salla.png" alt="سلة" loading="lazy" />
+                            </div>
+                            سلة
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/zid.webp" alt="زد" loading="lazy" />
+                            </div>
+                            زد
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills and Platforms Section - English -->
+        <section class="content-section content" data-lang="en">
+            <h2 class="section-title">Technologies & Platforms</h2>
+            <div class="skills-platforms-container">
+                <!-- Technical Skills -->
+                <div class="skills-section">
+                    <h3 class="subsection-title">
+                        <div class="subsection-icon">⚡</div>
+                        Development Technologies
+                    </h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <span class="skill-icon">🌐</span>
+                            HTML5
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎨</span>
+                            CSS3
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">⚡</span>
+                            JavaScript
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">📱</span>
+                            Bootstrap
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎯</span>
+                            Tailwind CSS
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🔧</span>
+                            PHP
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🚀</span>
+                            GSAP
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">🎪</span>
+                            Animations
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-icon">📐</span>
+                            Responsive Design
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platforms -->
+                <div class="platforms-section">
+                    <h3 class="subsection-title">
+                        <div class="subsection-icon">🚀</div>
+                        Development Platforms
+                    </h3>
+                    <div class="platforms-grid">
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/wp.png" alt="WordPress" loading="lazy" />
+                            </div>
+                            WordPress
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/shop.png" alt="Shopify" loading="lazy" />
+                            </div>
+                            Shopify
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/salla.png" alt="Salla" loading="lazy" />
+                            </div>
+                            Salla
+                        </div>
+                        <div class="platform-item">
+                            <div class="platform-logo">
+                                <img src="assets/images/zid.webp" alt="Zid" loading="lazy" />
+                            </div>
+                            Zid
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section - Arabic -->
+        <section class="content-section content" data-lang="ar">
+            <h2 class="section-title">خدماتي المتخصصة</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">🎨</div>
+                    <div class="service-content">
+                        <h4 class="service-title">تصميم واجهات مستخدم</h4>
+                        <p class="service-desc">تصميم واجهات عصرية وتفاعلية تركز على تجربة المستخدم</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">⚙️</div>
+                    <div class="service-content">
+                        <h4 class="service-title">تطوير WordPress</h4>
+                        <p class="service-desc">مواقع ومدونات مخصصة بالكامل حسب احتياجاتك</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🛒</div>
+                    <div class="service-content">
+                        <h4 class="service-title">المتاجر الإلكترونية</h4>
+                        <p class="service-desc">متاجر احترافية مع أنظمة دفع متقدمة وإدارة مخزون</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📱</div>
+                    <div class="service-content">
+                        <h4 class="service-title">التصميم المتجاوب</h4>
+                        <p class="service-desc">مواقع تعمل بكفاءة على جميع الأجهزة والشاشات</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🚀</div>
+                    <div class="service-content">
+                        <h4 class="service-title">تحسين الأداء</h4>
+                        <p class="service-desc">تسريع المواقع وتحسين أداء التحميل والاستجابة</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🎪</div>
+                    <div class="service-content">
+                        <h4 class="service-title">الحركات والتأثيرات</h4>
+                        <p class="service-desc">إضافة حركات وتأثيرات بصرية متطورة لجعل المواقع أكثر جاذبية وتفاعل</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section - English -->
+        <section class="content-section content" data-lang="en">
+            <h2 class="section-title">My Specialized Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">🎨</div>
+                    <div class="service-content">
+                        <h4 class="service-title">UI/UX Design</h4>
+                        <p class="service-desc">Modern and interactive interfaces focused on user experience</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">⚙️</div>
+                    <div class="service-content">
+                        <h4 class="service-title">WordPress Development</h4>
+                        <p class="service-desc">Fully customized websites and blogs according to your needs</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🛒</div>
+                    <div class="service-content">
+                        <h4 class="service-title">E-commerce Stores</h4>
+                        <p class="service-desc">Professional stores with advanced payment systems and inventory
+                            management</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📱</div>
+                    <div class="service-content">
+                        <h4 class="service-title">Responsive Design</h4>
+                        <p class="service-desc">Websites that work efficiently on all devices and screens</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🚀</div>
+                    <div class="service-content">
+                        <h4 class="service-title">Performance Optimization</h4>
+                        <p class="service-desc">Speed up websites and improve loading and response performance</p>
+                    </div>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🎪</div>
+                    <div class="service-content">
+                        <h4 class="service-title">Animations & Effects</h4>
+                        <p class="service-desc">Adding advanced animations and visual effects to make websites more
+                            attractive and interactive</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Creative Slider Section - Arabic -->
+        <section class="portfolio-slider-section content" data-lang="ar" id="portfolioSliderSection"
+            data-direction="rtl">
+            <h2 class="section-title">مكتبة أعمالي</h2>
+            <div class="portfolio-slider-container">
+                <div class="portfolio-slider" id="portfolioSlider">
+                    <div class="slider-track" id="sliderTrack"></div>
+                </div>
+
+                <div class="slider-navigation">
+                    <button class="nav-btn nav-prev" id="navPrev">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="nav-btn nav-next" id="navNext">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Creative Slider Section - English -->
+        <section class="portfolio-slider-section content" data-lang="en" id="portfolioSliderSectionEn"
+            data-direction="ltr">
+            <h2 class="section-title">My Portfolio</h2>
+            <div class="portfolio-slider-container">
+                <div class="portfolio-slider" id="portfolioSliderEn">
+                    <div class="slider-track" id="sliderTrackEn"></div>
+                </div>
+
+                <div class="slider-navigation">
+                    <button class="nav-btn nav-prev" id="navPrevEn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="nav-btn nav-next" id="navNextEn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section - Arabic -->
+        <section class="cta-section content" data-lang="ar">
+            <div class="cta-content">
+                <h2 class="cta-title">هل تريد تصميم متجرك الإلكتروني الآن؟</h2>
+                <p class="cta-subtitle">
+                    احصل على متجر إلكتروني احترافي يعكس هويتك التجارية ويجذب العملاء.
+                    متاجر متجاوبة مع جميع الأجهزة، أنظمة دفع آمنة، وتصميم عصري يزيد من مبيعاتك.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://api.whatsapp.com/send?phone=201552492512&text=مرحبا حسام، أريد تصميم متجر إلكتروني احترافي"
+                        class="cta-button primary" target="_blank" rel="noopener">
+                        <span>ابدأ متجرك الآن</span>
+                        <span class="cta-icon">←</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section - English -->
+        <section class="cta-section content" data-lang="en">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Design Your E-commerce Store Now?</h2>
+                <p class="cta-subtitle">
+                    Get a professional e-commerce store that reflects your brand identity and attracts customers.
+                    Responsive stores for all devices, secure payment systems, and modern design that increases your
+                    sales.
+                </p>
+                <div class="cta-buttons">
+                    <a href="https://api.whatsapp.com/send?phone=201552492512&text=Hello Hossam, I want to design a professional e-commerce store"
+                        class="cta-button primary" target="_blank" rel="noopener">
+                        <span>Start Your Store Now</span>
+                        <span class="cta-icon">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Fixed Contact Buttons -->
+    <div class="floating-contact">
+        <a href="https://www.linkedin.com/in/hossam-hamed2512/" class="contact-btn linkedin-btn" target="_blank"
+            rel="noopener" title="LinkedIn" id="linkedinBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+        </a>
+        <a href="https://api.whatsapp.com/send?phone=201552492512&text=مرحبا حسام، أريد التحدث معك حول مشروع جديد"
+            class="contact-btn whatsapp-btn" target="_blank" rel="noopener" title="واتساب" id="whatsappBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.886 3.488" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

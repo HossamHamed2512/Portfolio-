@@ -1439,21 +1439,57 @@ window.PortfolioApp = {
 };
 
 
-// Function to prevent right-click context menu
-function preventRightClick() {
+// Function to prevent right-click and F12 (developer tools)
+function preventRightClickAndF12() {
+  // Prevent right-click context menu
   document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
       return false;
   });
+  
+  // Prevent F12 and other developer tools shortcuts
+  document.addEventListener('keydown', function(e) {
+      // F12 key
+      if (e.key === 'F12') {
+          e.preventDefault();
+          return false;
+      }
+      
+      // Ctrl+Shift+I (Developer Tools)
+      if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+          e.preventDefault();
+          return false;
+      }
+      
+      // Ctrl+Shift+C (Inspect Element)
+      if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+          e.preventDefault();
+          return false;
+      }
+      
+      // Ctrl+U (View Source)
+      if (e.ctrlKey && e.key === 'u') {
+          e.preventDefault();
+          return false;
+      }
+  });
 }
 
-// Call the function to activate right-click prevention
-preventRightClick();
+// Call the function to activate protection
+preventRightClickAndF12();
 
-// Alternative: One-liner version
-// document.addEventListener('contextmenu', e => e.preventDefault());
+// Alternative: Separate functions
+function preventRightClick() {
+  document.addEventListener('contextmenu', e => e.preventDefault());
+}
 
-// To remove the prevention later (optional)
-function enableRightClick() {
-  document.removeEventListener('contextmenu', preventRightClick);
+function preventF12() {
+  document.addEventListener('keydown', function(e) {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+          (e.ctrlKey && e.key === 'u')) {
+          e.preventDefault();
+      }
+  });
 }

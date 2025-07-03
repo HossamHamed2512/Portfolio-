@@ -327,7 +327,7 @@ function createSliderSlides() {
       slide.dataset.index = i - 1;
 
       const img = document.createElement("img");
-      img.src = `assets/images/My Work/${i}.png`;
+      img.src = `assets/images/My Work/${i}.webp`;
       img.alt = currentLanguage === "ar" ? `مشروع ${i}` : `Project ${i}`;
       img.loading = "lazy";
 
@@ -347,7 +347,7 @@ function createSliderSlides() {
       slide.dataset.index = i - 1;
 
       const img = document.createElement("img");
-      img.src = `assets/images/My Work/${i}.png`;
+      img.src = `assets/images/My Work/${i}.webp`;
       img.alt = currentLanguage === "ar" ? `مشروع ${i}` : `Project ${i}`;
       img.loading = "lazy";
 
@@ -679,7 +679,7 @@ function applySlideTransform(slide, position) {
 
 function handleSlideClick(index) {
   if (index === currentSlide) {
-    openImageModal(`assets/images/My Work/${index + 1}.png`, index);
+    openImageModal(`assets/images/My Work/${index + 1}.webp`, index);
   } else {
     goToSlide(index);
   }

@@ -5,6 +5,7 @@ let isAnimating = false;
 let gsapLoaded = false;
 
 // Portfolio Slider Variables
+
 let currentSlide = 0;
 let totalSlides = 23;
 let sliderInstance = null;

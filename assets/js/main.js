@@ -1,15 +1,12 @@
 // ===== GLOBAL VARIABLES =====
-let currentLanguage = "ar";
+let currentLanguage = "en";
 let currentTheme = "dark";
 let isAnimating = false;
 let gsapLoaded = false;
 
 // Portfolio Slider Variables
-
 let currentSlide = 0;
 let totalSlides = 23;
-let sliderInstance = null;
-let sliderInstanceEn = null;
 let autoplayInterval = null;
 let isSliderAnimating = false;
 
@@ -32,24 +29,15 @@ function initializeElements() {
   elements.modalBackdrop = document.getElementById("modalBackdrop");
 
   // Simple switcher elements
-  elements.langBtnAr = document.getElementById("langBtnAr");
   elements.langBtnEn = document.getElementById("langBtnEn");
   elements.themeBtnDark = document.getElementById("themeBtnDark");
   elements.themeBtnLight = document.getElementById("themeBtnLight");
 
   // Portfolio slider elements
-  elements.portfolioSliderSection = document.getElementById(
-    "portfolioSliderSection"
-  );
-  elements.portfolioSliderSectionEn = document.getElementById(
-    "portfolioSliderSectionEn"
-  );
-  elements.sliderTrack = document.getElementById("sliderTrack");
-  elements.sliderTrackEn = document.getElementById("sliderTrackEn");
-  elements.navPrev = document.getElementById("navPrev");
-  elements.navNext = document.getElementById("navNext");
-  elements.navPrevEn = document.getElementById("navPrevEn");
-  elements.navNextEn = document.getElementById("navNextEn");
+  elements.portfolioSliderSection = document.getElementById("portfolioSliderSectionEn");
+  elements.sliderTrack = document.getElementById("sliderTrackEn");
+  elements.navPrev = document.getElementById("navPrevEn");
+  elements.navNext = document.getElementById("navNextEn");
 }
 
 function initializeApp() {
@@ -88,7 +76,7 @@ function checkGSAPAndInitialize() {
 // ===== USER PREFERENCES =====
 function loadUserPreferences() {
   const savedTheme = localStorage.getItem("portfolio-theme") || "dark";
-  const savedLang = localStorage.getItem("portfolio-language") || "ar";
+  const savedLang = localStorage.getItem("portfolio-language") || "en";
 
   setTheme(savedTheme, false);
   setLanguage(savedLang, false);
@@ -101,15 +89,9 @@ function saveUserPreferences() {
 
 // ===== LANGUAGE SWITCHER =====
 function initLanguageSwitcher() {
-  if (!elements.langBtnAr || !elements.langBtnEn) return;
+  if (!elements.langBtnEn) return;
 
   updateLanguageButtons();
-
-  elements.langBtnAr.addEventListener("click", () => {
-    if (currentLanguage !== "ar") {
-      setLanguage("ar", true);
-    }
-  });
 
   elements.langBtnEn.addEventListener("click", () => {
     if (currentLanguage !== "en") {
@@ -119,16 +101,10 @@ function initLanguageSwitcher() {
 }
 
 function updateLanguageButtons() {
-  if (!elements.langBtnAr || !elements.langBtnEn) return;
+  if (!elements.langBtnEn) return;
 
-  elements.langBtnAr.classList.remove("active");
   elements.langBtnEn.classList.remove("active");
-
-  if (currentLanguage === "ar") {
-    elements.langBtnAr.classList.add("active");
-  } else {
-    elements.langBtnEn.classList.add("active");
-  }
+  elements.langBtnEn.classList.add("active");
 }
 
 function setLanguage(lang, animate = true) {
@@ -148,7 +124,7 @@ function setLanguage(lang, animate = true) {
 
   if (animate && gsapLoaded) {
     animateLanguageSwitch();
-    animateButtonClick(lang === "ar" ? elements.langBtnAr : elements.langBtnEn);
+    animateButtonClick(elements.langBtnEn);
   }
 
   saveUserPreferences();
@@ -250,7 +226,7 @@ function startMainAnimations() {
     gsap.fromTo(
       floatingContact,
       {
-        x: currentLanguage === "ar" ? 100 : -100,
+        x: -100,
         opacity: 0,
       },
       {
@@ -292,24 +268,20 @@ function initScrollProgress() {
 }
 
 // ===== PORTFOLIO SLIDER ===== 
-// Initialize portfolio slider
 function initPortfolioSlider() {
-  // Fetch data from ACF and update main title
   fetch('https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/works?slug=gallery')
     .then(response => response.json())
     .then(data => {
       if (data[0]?.acf) {
         const heroData = data[0].acf;
 
-        // Dynamically update main title from ACF
         const titleElement = document.querySelector('#portfolioTitle');
         if (titleElement && heroData.main_title) {
-          titleElement.textContent = heroData.main_title;  // Update the <h2> title
+          titleElement.textContent = heroData.main_title;
         } else {
           console.error("main_title is not available in the data.");
         }
 
-        // Create the slides using heroData
         createSliderSlides(heroData);
       }
     })
@@ -339,18 +311,15 @@ function initPortfolioSlider() {
   });
 }
 
-// Create slider slides based on ACF data
 function createSliderSlides(heroData) {
-  // Get all image keys dynamically from heroData
-  const imageFields = Object.keys(heroData).filter(key => key.startsWith('img')); // Only fields starting with 'img'
+  const imageFields = Object.keys(heroData).filter(key => key.startsWith('img'));
 
-  totalSlides = imageFields.length;  // Set total slides based on the number of images
+  totalSlides = imageFields.length;
 
-  // Create slides for Arabic version
   if (elements.sliderTrack) {
-    elements.sliderTrack.innerHTML = ""; // Clear existing slides
+    elements.sliderTrack.innerHTML = "";
     imageFields.forEach((field, index) => {
-      const imgID = heroData[field]; // Get the image ID from ACF data
+      const imgID = heroData[field];
       if (imgID) {
         fetch(`https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/media/${imgID}`)
           .then(res => res.json())
@@ -361,11 +330,11 @@ function createSliderSlides(heroData) {
 
             const img = document.createElement("img");
             img.src = media.source_url;
-            img.alt = currentLanguage === "ar" ? `مشروع ${index + 1}` : `Project ${index + 1}`;
+            img.alt = `Project ${index + 1}`;
             img.loading = "lazy";
 
             slide.appendChild(img);
-            slide.addEventListener("click", () => handleSlideClick(media.source_url)); // Handle click to open modal
+            slide.addEventListener("click", () => handleSlideClick(media.source_url));
 
             elements.sliderTrack.appendChild(slide);
           })
@@ -375,41 +344,9 @@ function createSliderSlides(heroData) {
       }
     });
   }
-
-  // Create slides for English version
-  if (elements.sliderTrackEn) {
-    elements.sliderTrackEn.innerHTML = ""; // Clear existing slides
-    imageFields.forEach((field, index) => {
-      const imgID = heroData[field]; // Get the image ID from ACF data
-      if (imgID) {
-        fetch(`https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/media/${imgID}`)
-          .then(res => res.json())
-          .then(media => {
-            const slide = document.createElement("div");
-            slide.className = "slider-slide";
-            slide.dataset.index = index;
-
-            const img = document.createElement("img");
-            img.src = media.source_url;
-            img.alt = currentLanguage === "ar" ? `مشروع ${index + 1}` : `Project ${index + 1}`;
-            img.loading = "lazy";
-
-            slide.appendChild(img);
-            slide.addEventListener("click", () => handleSlideClick(media.source_url)); // Handle click to open modal
-
-            elements.sliderTrackEn.appendChild(slide);
-          })
-          .catch(error => {
-            console.error("Error fetching image data:", error);
-          });
-      }
-    });
-  }
 }
 
-// Slider navigation setup
 function initSliderNavigation() {
-  // Arabic navigation
   if (elements.navPrev) {
     elements.navPrev.addEventListener("click", () => {
       stopAutoplay();
@@ -425,26 +362,8 @@ function initSliderNavigation() {
       setTimeout(startAutoplay, 2000);
     });
   }
-
-  // English navigation
-  if (elements.navPrevEn) {
-    elements.navPrevEn.addEventListener("click", () => {
-      stopAutoplay();
-      goToPrevSlide();
-      setTimeout(startAutoplay, 2000);
-    });
-  }
-
-  if (elements.navNextEn) {
-    elements.navNextEn.addEventListener("click", () => {
-      stopAutoplay();
-      goToNextSlide();
-      setTimeout(startAutoplay, 2000);
-    });
-  }
 }
 
-// Slider events like keyboard and touch
 function initSliderEvents() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
@@ -497,7 +416,6 @@ function initSliderEvents() {
   }
 }
 
-// Go to a specific slide
 function goToSlide(index, animate = true) {
   if (isSliderAnimating || index === currentSlide) return;
 
@@ -505,19 +423,16 @@ function goToSlide(index, animate = true) {
   updateSliderPosition(animate);
 }
 
-// Go to the next slide
 function goToNextSlide() {
   const nextIndex = (currentSlide + 1) % totalSlides;
   goToSlide(nextIndex);
 }
 
-// Go to the previous slide
 function goToPrevSlide() {
   const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
   goToSlide(prevIndex);
 }
 
-// Update slider position based on the active slide
 function updateSliderPosition(animate = true) {
   const slides = document.querySelectorAll(".slider-slide");
 
@@ -551,7 +466,6 @@ function updateSliderPosition(animate = true) {
   }, 500);
 }
 
-// Get the position of the slide (active, next, prev)
 function getSlidePosition(slideIndex, currentIndex) {
   if (slideIndex === currentIndex) {
     return "active";
@@ -560,31 +474,20 @@ function getSlidePosition(slideIndex, currentIndex) {
   const diff = slideIndex - currentIndex;
   const totalSlides = 23;
 
-  if (currentLanguage === "ar") {
-    if (diff === 1 || diff === -(totalSlides - 1)) return "next-1";
-    if (diff === 2 || diff === -(totalSlides - 2)) return "next-2";
-    if (diff === 3 || diff === -(totalSlides - 3)) return "next-3";
-    if (diff === -1 || diff === totalSlides - 1) return "prev-1";
-    if (diff === -2 || diff === totalSlides - 2) return "prev-2";
-    if (diff === -3 || diff === totalSlides - 3) return "prev-3";
-  } else {
-    if (diff === 1 || diff === -(totalSlides - 1)) return "next-1";
-    if (diff === 2 || diff === -(totalSlides - 2)) return "next-2";
-    if (diff === 3 || diff === -(totalSlides - 3)) return "next-3";
-    if (diff === -1 || diff === totalSlides - 1) return "prev-1";
-    if (diff === -2 || diff === totalSlides - 2) return "prev-2";
-    if (diff === -3 || diff === totalSlides - 3) return "prev-3";
-  }
+  if (diff === 1 || diff === -(totalSlides - 1)) return "next-1";
+  if (diff === 2 || diff === -(totalSlides - 2)) return "next-2";
+  if (diff === 3 || diff === -(totalSlides - 3)) return "next-3";
+  if (diff === -1 || diff === totalSlides - 1) return "prev-1";
+  if (diff === -2 || diff === totalSlides - 2) return "prev-2";
+  if (diff === -3 || diff === totalSlides - 3) return "prev-3";
 
   return "hidden";
 }
 
-// Apply CSS transform for the slide
 function applySlideTransform(slide, position) {
   try {
     const isMobile = window.innerWidth <= 768;
     const isSmallMobile = window.innerWidth <= 480;
-    const isRTL = currentLanguage === "ar";
 
     let transform = "";
     let filter = "";
@@ -659,22 +562,19 @@ function applySlideTransform(slide, position) {
   }
 }
 
-// Open the modal with the clicked image's URL
 function handleSlideClick(imageUrl) {
-  openImageModal(imageUrl); // Directly use the passed image URL
+  openImageModal(imageUrl);
 }
 
-// Start autoplay for the slider
 function startAutoplay() {
   stopAutoplay();
   autoplayInterval = setInterval(() => {
     if (!isSliderAnimating && !document.querySelector(".image-modal.show")) {
       goToNextSlide();
     }
-  }, 3000); // Change slide every 3 seconds
+  }, 3000);
 }
 
-// Stop autoplay for the slider
 function stopAutoplay() {
   if (autoplayInterval) {
     clearInterval(autoplayInterval);
@@ -682,13 +582,11 @@ function stopAutoplay() {
   }
 }
 
-
-
 // ===== MODAL FUNCTIONS =====
 function openImageModal(imageSrc) {
   if (!elements.imageModal || !elements.modalImage) return;
 
-  elements.modalImage.src = imageSrc; // Set the image source to the clicked image's URL
+  elements.modalImage.src = imageSrc;
   elements.imageModal.classList.add("show");
   document.body.style.overflow = "hidden";
 
@@ -819,7 +717,7 @@ function initGSAPAnimations() {
 
   // Services
   gsap.utils.toArray(".service-item").forEach((item, index) => {
-    const direction = currentLanguage === "ar" ? 50 : -50;
+    const direction = -50;
     gsap.fromTo(
       item,
       {
@@ -943,7 +841,7 @@ function initSimpleTechnologiesAnimations() {
   });
 
   gsap.utils.toArray(".skill-item").forEach((item, index) => {
-    const direction = currentLanguage === "ar" ? 50 : -50;
+    const direction = -50;
     gsap.fromTo(
       item,
       {
@@ -1059,19 +957,13 @@ function updateContactLinks() {
   const linkedinBtn = document.getElementById("linkedinBtn");
 
   if (whatsappBtn) {
-    if (currentLanguage === "en") {
-      whatsappBtn.href =
-        "https://api.whatsapp.com/send?phone=201552492512&text=Hello Hossam, I would like to discuss a new project with you";
-      whatsappBtn.title = "WhatsApp";
-    } else {
-      whatsappBtn.href =
-        "https://api.whatsapp.com/send?phone=201552492512&text=مرحبا حسام، أريد التحدث معك حول مشروع جديد";
-      whatsappBtn.title = "واتساب";
-    }
+    whatsappBtn.href =
+      "https://api.whatsapp.com/send?phone=201552492512&text=Hello Hossam, I would like to discuss a new project with you";
+    whatsappBtn.title = "WhatsApp";
   }
 
   if (linkedinBtn) {
-    linkedinBtn.title = currentLanguage === "en" ? "LinkedIn" : "لينكد إن";
+    linkedinBtn.title = "LinkedIn";
   }
 }
 
@@ -1194,7 +1086,7 @@ function initKeyboardNavigation() {
       case "L":
         if (e.ctrlKey || e.metaKey) {
           e.preventDefault();
-          const newLang = currentLanguage === "ar" ? "en" : "ar";
+          const newLang = "en";
           setLanguage(newLang, true);
         }
         break;
@@ -1405,4 +1297,3 @@ window.PortfolioApp = {
   currentTheme: () => currentTheme,
   currentSlide: () => currentSlide,
 };
-

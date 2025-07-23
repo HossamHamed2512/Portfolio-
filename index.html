@@ -55,6 +55,61 @@
                     and responsive technical solutions.
                 </p>
             </div>
+            <script>
+    fetch('https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/bannerone?slug=Banner1')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data[0]?.acf) {
+                const heroData = data[0].acf;
+
+                // Update Avatar Image (profile image)
+                if (heroData.profile) {
+                    updateImage(heroData.profile, '.profile-img img');
+                }
+
+                // Update Hero Title (head_title)
+                if (heroData.head_title) {
+                    const titleElement = document.querySelector('.main-title');
+                    if (titleElement) titleElement.textContent = heroData.head_title;
+                }
+
+                // Update Static Text (static_text) - Corrected name
+                if (heroData.static_text) {
+                    const staticTextElement = document.querySelector('.static-text');
+                    if (staticTextElement) staticTextElement.textContent = heroData.static_text;
+                }
+
+                // Update Hero Description (hero_description) - Corrected name
+                if (heroData.hero_description) {
+                    const descriptionElement = document.querySelector('.hero-description');
+                    if (descriptionElement) descriptionElement.textContent = heroData.hero_description;
+                }
+            }
+        })
+        .catch(() => {
+            // Error handling - no need for console logging
+        });
+
+    function updateImage(imgID, selector) {
+        const imgElement = document.querySelector(selector);
+        if (!imgElement) return;
+
+        if (imgID?.url) {
+            // Handle image object
+            imgElement.src = imgID.url;
+            imgElement.alt = imgID.alt || '';
+        } else if (typeof imgID === 'number') {
+            // Handle image ID
+            fetch(`https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/media/${imgID}`)
+                .then(res => res.json())
+                .then(media => {
+                    imgElement.src = media.source_url;
+                    imgElement.alt = media.alt_text || '';
+                });
+        }
+    }
+</script>
+
         </section>
 
         <!-- About Section - English -->

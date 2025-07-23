@@ -290,9 +290,32 @@ function initScrollProgress() {
   window.addEventListener("scroll", handleScroll, { passive: true });
 }
 
-// ===== PORTFOLIO SLIDER =====
+// ===== PORTFOLIO SLIDER ===== 
+// Initialize portfolio slider
 function initPortfolioSlider() {
-  createSliderSlides();
+  // Fetch data from ACF and update main title
+  fetch('https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/works?slug=gallery')
+    .then(response => response.json())
+    .then(data => {
+      if (data[0]?.acf) {
+        const heroData = data[0].acf;
+
+        // Dynamically update main title from ACF
+        const titleElement = document.querySelector('#portfolioTitle');
+        if (titleElement && heroData.main_title) {
+          titleElement.textContent = heroData.main_title;  // Update the <h2> title
+        } else {
+          console.error("main_title is not available in the data.");
+        }
+
+        // Create the slides using heroData
+        createSliderSlides(heroData);
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching portfolio data: ", error);
+    });
+
   initSliderNavigation();
   initSliderEvents();
 
@@ -304,9 +327,7 @@ function initPortfolioSlider() {
     startAutoplay();
   }, 1000);
 
-  const sliderContainers = document.querySelectorAll(
-    ".portfolio-slider-container"
-  );
+  const sliderContainers = document.querySelectorAll(".portfolio-slider-container");
   sliderContainers.forEach((container) => {
     container.addEventListener("mouseenter", () => {
       stopAutoplay();
@@ -317,48 +338,75 @@ function initPortfolioSlider() {
   });
 }
 
-function createSliderSlides() {
+// Create slider slides based on ACF data
+function createSliderSlides(heroData) {
+  // Get all image keys dynamically from heroData
+  const imageFields = Object.keys(heroData).filter(key => key.startsWith('img')); // Only fields starting with 'img'
+
+  totalSlides = imageFields.length;  // Set total slides based on the number of images
+
   // Create slides for Arabic version
   if (elements.sliderTrack) {
-    elements.sliderTrack.innerHTML = "";
-    for (let i = 1; i <= totalSlides; i++) {
-      const slide = document.createElement("div");
-      slide.className = "slider-slide";
-      slide.dataset.index = i - 1;
+    elements.sliderTrack.innerHTML = ""; // Clear existing slides
+    imageFields.forEach((field, index) => {
+      const imgID = heroData[field]; // Get the image ID from ACF data
+      if (imgID) {
+        fetch(`https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/media/${imgID}`)
+          .then(res => res.json())
+          .then(media => {
+            const slide = document.createElement("div");
+            slide.className = "slider-slide";
+            slide.dataset.index = index;
 
-      const img = document.createElement("img");
-      img.src = `assets/images/My Work/${i}.webp`;
-      img.alt = currentLanguage === "ar" ? `مشروع ${i}` : `Project ${i}`;
-      img.loading = "lazy";
+            const img = document.createElement("img");
+            img.src = media.source_url;
+            img.alt = currentLanguage === "ar" ? `مشروع ${index + 1}` : `Project ${index + 1}`;
+            img.loading = "lazy";
 
-      slide.appendChild(img);
-      slide.addEventListener("click", () => handleSlideClick(i - 1));
+            slide.appendChild(img);
+            slide.addEventListener("click", () => handleSlideClick(media.source_url)); // Handle click to open modal
 
-      elements.sliderTrack.appendChild(slide);
-    }
+            elements.sliderTrack.appendChild(slide);
+          })
+          .catch(error => {
+            console.error("Error fetching image data:", error);
+          });
+      }
+    });
   }
 
   // Create slides for English version
   if (elements.sliderTrackEn) {
-    elements.sliderTrackEn.innerHTML = "";
-    for (let i = 1; i <= totalSlides; i++) {
-      const slide = document.createElement("div");
-      slide.className = "slider-slide";
-      slide.dataset.index = i - 1;
+    elements.sliderTrackEn.innerHTML = ""; // Clear existing slides
+    imageFields.forEach((field, index) => {
+      const imgID = heroData[field]; // Get the image ID from ACF data
+      if (imgID) {
+        fetch(`https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/media/${imgID}`)
+          .then(res => res.json())
+          .then(media => {
+            const slide = document.createElement("div");
+            slide.className = "slider-slide";
+            slide.dataset.index = index;
 
-      const img = document.createElement("img");
-      img.src = `assets/images/My Work/${i}.webp`;
-      img.alt = currentLanguage === "ar" ? `مشروع ${i}` : `Project ${i}`;
-      img.loading = "lazy";
+            const img = document.createElement("img");
+            img.src = media.source_url;
+            img.alt = currentLanguage === "ar" ? `مشروع ${index + 1}` : `Project ${index + 1}`;
+            img.loading = "lazy";
 
-      slide.appendChild(img);
-      slide.addEventListener("click", () => handleSlideClick(i - 1));
+            slide.appendChild(img);
+            slide.addEventListener("click", () => handleSlideClick(media.source_url)); // Handle click to open modal
 
-      elements.sliderTrackEn.appendChild(slide);
-    }
+            elements.sliderTrackEn.appendChild(slide);
+          })
+          .catch(error => {
+            console.error("Error fetching image data:", error);
+          });
+      }
+    });
   }
 }
 
+// Slider navigation setup
 function initSliderNavigation() {
   // Arabic navigation
   if (elements.navPrev) {
@@ -368,6 +416,7 @@ function initSliderNavigation() {
       setTimeout(startAutoplay, 2000);
     });
   }
+
   if (elements.navNext) {
     elements.navNext.addEventListener("click", () => {
       stopAutoplay();
@@ -384,6 +433,7 @@ function initSliderNavigation() {
       setTimeout(startAutoplay, 2000);
     });
   }
+
   if (elements.navNextEn) {
     elements.navNextEn.addEventListener("click", () => {
       stopAutoplay();
@@ -393,6 +443,7 @@ function initSliderNavigation() {
   }
 }
 
+// Slider events like keyboard and touch
 function initSliderEvents() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") {
@@ -445,6 +496,7 @@ function initSliderEvents() {
   }
 }
 
+// Go to a specific slide
 function goToSlide(index, animate = true) {
   if (isSliderAnimating || index === currentSlide) return;
 
@@ -452,16 +504,19 @@ function goToSlide(index, animate = true) {
   updateSliderPosition(animate);
 }
 
+// Go to the next slide
 function goToNextSlide() {
   const nextIndex = (currentSlide + 1) % totalSlides;
   goToSlide(nextIndex);
 }
 
+// Go to the previous slide
 function goToPrevSlide() {
   const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
   goToSlide(prevIndex);
 }
 
+// Update slider position based on the active slide
 function updateSliderPosition(animate = true) {
   const slides = document.querySelectorAll(".slider-slide");
 
@@ -482,17 +537,10 @@ function updateSliderPosition(animate = true) {
   if (gsapLoaded && animate) {
     const activeSlide = document.querySelector(".slider-slide.active");
     if (activeSlide) {
-      // Don't animate transform since we handle it manually
       gsap.fromTo(
         activeSlide,
-        {
-          opacity: 0.8,
-        },
-        {
-          opacity: 1,
-          duration: 0.4,
-          ease: "back.out(1.7)",
-        }
+        { opacity: 0.8 },
+        { opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
       );
     }
   }
@@ -502,6 +550,7 @@ function updateSliderPosition(animate = true) {
   }, 500);
 }
 
+// Get the position of the slide (active, next, prev)
 function getSlidePosition(slideIndex, currentIndex) {
   if (slideIndex === currentIndex) {
     return "active";
@@ -510,41 +559,26 @@ function getSlidePosition(slideIndex, currentIndex) {
   const diff = slideIndex - currentIndex;
   const totalSlides = 23;
 
-  // Fix for Arabic - same logic as English but flipped for visual appearance
   if (currentLanguage === "ar") {
-    if (diff === 1 || diff === -(totalSlides - 1)) {
-      return "next-1";
-    } else if (diff === 2 || diff === -(totalSlides - 2)) {
-      return "next-2";
-    } else if (diff === 3 || diff === -(totalSlides - 3)) {
-      return "next-3";
-    } else if (diff === -1 || diff === totalSlides - 1) {
-      return "prev-1";
-    } else if (diff === -2 || diff === totalSlides - 2) {
-      return "prev-2";
-    } else if (diff === -3 || diff === totalSlides - 3) {
-      return "prev-3";
-    }
+    if (diff === 1 || diff === -(totalSlides - 1)) return "next-1";
+    if (diff === 2 || diff === -(totalSlides - 2)) return "next-2";
+    if (diff === 3 || diff === -(totalSlides - 3)) return "next-3";
+    if (diff === -1 || diff === totalSlides - 1) return "prev-1";
+    if (diff === -2 || diff === totalSlides - 2) return "prev-2";
+    if (diff === -3 || diff === totalSlides - 3) return "prev-3";
   } else {
-    // Original logic for English
-    if (diff === 1 || diff === -(totalSlides - 1)) {
-      return "next-1";
-    } else if (diff === 2 || diff === -(totalSlides - 2)) {
-      return "next-2";
-    } else if (diff === 3 || diff === -(totalSlides - 3)) {
-      return "next-3";
-    } else if (diff === -1 || diff === totalSlides - 1) {
-      return "prev-1";
-    } else if (diff === -2 || diff === totalSlides - 2) {
-      return "prev-2";
-    } else if (diff === -3 || diff === totalSlides - 3) {
-      return "prev-3";
-    }
+    if (diff === 1 || diff === -(totalSlides - 1)) return "next-1";
+    if (diff === 2 || diff === -(totalSlides - 2)) return "next-2";
+    if (diff === 3 || diff === -(totalSlides - 3)) return "next-3";
+    if (diff === -1 || diff === totalSlides - 1) return "prev-1";
+    if (diff === -2 || diff === totalSlides - 2) return "prev-2";
+    if (diff === -3 || diff === totalSlides - 3) return "prev-3";
   }
 
   return "hidden";
 }
 
+// Apply CSS transform for the slide
 function applySlideTransform(slide, position) {
   try {
     const isMobile = window.innerWidth <= 768;
@@ -564,107 +598,54 @@ function applySlideTransform(slide, position) {
     const depth2 = isSmallMobile ? -120 : isMobile ? -160 : -200;
     const depth3 = isSmallMobile ? -180 : isMobile ? -240 : -300;
 
-    // No direction multiplier - keep same logic for both languages
-    const dirMultiplier = 1;
-
     switch (position) {
       case "active":
-        // Keep center position and add scale
-        transform =
-          "translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0deg) scale(1)";
+        transform = "translate(-50%, -50%) translateX(0) translateZ(0) rotateY(0deg) scale(1)";
         filter = "blur(0) brightness(1)";
         zIndex = "10";
-        slide.style.borderColor = "var(--accent-primary)";
         break;
 
       case "prev-1":
-        transform = `translate(-50%, -50%) translateX(${-distance1}px) translateZ(${depth1}px) rotateY(${25}deg) scale(${
-          0.9 * mobileScale
-        })`;
+        transform = `translate(-50%, -50%) translateX(${-distance1}px) translateZ(${depth1}px) rotateY(${25}deg) scale(${0.9 * mobileScale})`;
         filter = "blur(2px) brightness(0.7)";
         zIndex = "9";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
       case "prev-2":
-        if (isSmallMobile) {
-          opacity = "0";
-          transform =
-            "translate(-50%, -50%) translateX(0) translateZ(-500px) scale(0.5)";
-        } else {
-          transform = `translate(-50%, -50%) translateX(${-distance2}px) translateZ(${depth2}px) rotateY(${35}deg) scale(${
-            0.8 * mobileScale
-          })`;
-        }
+        transform = `translate(-50%, -50%) translateX(${-distance2}px) translateZ(${depth2}px) rotateY(${35}deg) scale(${0.8 * mobileScale})`;
         filter = "blur(4px) brightness(0.5)";
         zIndex = "8";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
       case "prev-3":
-        if (isSmallMobile) {
-          opacity = "0";
-          transform =
-            "translate(-50%, -50%) translateX(0) translateZ(-500px) scale(0.5)";
-        } else {
-          transform = `translate(-50%, -50%) translateX(${-distance3}px) translateZ(${depth3}px) rotateY(${45}deg) scale(${
-            0.7 * mobileScale
-          })`;
-          opacity = "0.7";
-        }
+        transform = `translate(-50%, -50%) translateX(${-distance3}px) translateZ(${depth3}px) rotateY(${45}deg) scale(${0.7 * mobileScale})`;
         filter = "blur(6px) brightness(0.3)";
         zIndex = "7";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
       case "next-1":
-        transform = `translate(-50%, -50%) translateX(${distance1}px) translateZ(${depth1}px) rotateY(${-25}deg) scale(${
-          0.9 * mobileScale
-        })`;
+        transform = `translate(-50%, -50%) translateX(${distance1}px) translateZ(${depth1}px) rotateY(${-25}deg) scale(${0.9 * mobileScale})`;
         filter = "blur(2px) brightness(0.7)";
         zIndex = "9";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
       case "next-2":
-        if (isSmallMobile) {
-          opacity = "0";
-          transform =
-            "translate(-50%, -50%) translateX(0) translateZ(-500px) scale(0.5)";
-        } else {
-          transform = `translate(-50%, -50%) translateX(${distance2}px) translateZ(${depth2}px) rotateY(${-35}deg) scale(${
-            0.8 * mobileScale
-          })`;
-        }
+        transform = `translate(-50%, -50%) translateX(${distance2}px) translateZ(${depth2}px) rotateY(${-35}deg) scale(${0.8 * mobileScale})`;
         filter = "blur(4px) brightness(0.5)";
         zIndex = "8";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
       case "next-3":
-        if (isSmallMobile) {
-          opacity = "0";
-          transform =
-            "translate(-50%, -50%) translateX(0) translateZ(-500px) scale(0.5)";
-        } else {
-          transform = `translate(-50%, -50%) translateX(${distance3}px) translateZ(${depth3}px) rotateY(${-45}deg) scale(${
-            0.7 * mobileScale
-          })`;
-          opacity = "0.7";
-        }
+        transform = `translate(-50%, -50%) translateX(${distance3}px) translateZ(${depth3}px) rotateY(${-45}deg) scale(${0.7 * mobileScale})`;
         filter = "blur(6px) brightness(0.3)";
         zIndex = "7";
-        slide.style.borderColor = "var(--border-color)";
         break;
 
-      case "hidden":
       default:
-        transform =
-          "translate(-50%, -50%) translateX(0) translateZ(-500px) rotateY(90deg) scale(0.5)";
+        transform = "translate(-50%, -50%) translateX(0) translateZ(-500px) rotateY(90deg) scale(0.5)";
         filter = "blur(10px)";
         zIndex = "1";
         opacity = "0";
-        slide.style.borderColor = "var(--border-color)";
         break;
     }
 
@@ -677,23 +658,22 @@ function applySlideTransform(slide, position) {
   }
 }
 
-function handleSlideClick(index) {
-  if (index === currentSlide) {
-    openImageModal(`assets/images/My Work/${index + 1}.webp`, index);
-  } else {
-    goToSlide(index);
-  }
+// Open the modal with the clicked image's URL
+function handleSlideClick(imageUrl) {
+  openImageModal(imageUrl); // Directly use the passed image URL
 }
 
+// Start autoplay for the slider
 function startAutoplay() {
   stopAutoplay();
   autoplayInterval = setInterval(() => {
     if (!isSliderAnimating && !document.querySelector(".image-modal.show")) {
       goToNextSlide();
     }
-  }, 3000);
+  }, 3000); // Change slide every 3 seconds
 }
 
+// Stop autoplay for the slider
 function stopAutoplay() {
   if (autoplayInterval) {
     clearInterval(autoplayInterval);
@@ -701,11 +681,13 @@ function stopAutoplay() {
   }
 }
 
+
+
 // ===== MODAL FUNCTIONS =====
-function openImageModal(imageSrc, index = 0) {
+function openImageModal(imageSrc) {
   if (!elements.imageModal || !elements.modalImage) return;
 
-  elements.modalImage.src = imageSrc;
+  elements.modalImage.src = imageSrc; // Set the image source to the clicked image's URL
   elements.imageModal.classList.add("show");
   document.body.style.overflow = "hidden";
 
@@ -714,31 +696,16 @@ function openImageModal(imageSrc, index = 0) {
   if (gsapLoaded) {
     gsap.fromTo(
       elements.imageModal,
-      {
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        duration: 0.3,
-        ease: "power2.out",
-      }
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: "power2.out" }
     );
 
     const modalContent = document.querySelector(".modal-content");
     if (modalContent) {
       gsap.fromTo(
         modalContent,
-        {
-          scale: 0.8,
-          opacity: 0,
-        },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.4,
-          delay: 0.1,
-          ease: "back.out(1.7)",
-        }
+        { scale: 0.8, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.4, delay: 0.1, ease: "back.out(1.7)" }
       );
     }
   }
@@ -757,7 +724,7 @@ function closeImageModal() {
         elements.modalImage.src = "";
         document.body.style.overflow = "";
         startAutoplay();
-      },
+      }
     });
   } else {
     elements.imageModal.style.opacity = "0";
@@ -1437,5 +1404,4 @@ window.PortfolioApp = {
   currentTheme: () => currentTheme,
   currentSlide: () => currentSlide,
 };
-
 

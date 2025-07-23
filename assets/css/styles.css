@@ -73,14 +73,6 @@ body {
     background: var(--bg-primary);
     overflow-x: hidden;
     transition: background var(--transition-normal), color var(--transition-normal);
-}
-
-/* Language Direction */
-[data-lang="ar"] {
-    direction: rtl;
-}
-
-[data-lang="en"] {
     direction: ltr;
 }
 
@@ -124,19 +116,6 @@ body {
     z-index: 1;
 }
 
-/* ===== CONTENT VISIBILITY ===== */
-.content[data-lang="en"] {
-    display: none;
-}
-
-body[data-lang="en"] .content[data-lang="ar"] {
-    display: none;
-}
-
-body[data-lang="en"] .content[data-lang="en"] {
-    display: block;
-}
-
 /* ===== TOP CONTROLS ===== */
 .top-controls {
     position: fixed;
@@ -147,80 +126,6 @@ body[data-lang="en"] .content[data-lang="en"] {
     flex-direction: column;
     gap: var(--space-md);
     align-items: flex-end;
-}
-
-/* Language Switcher */
-.simple-language-switcher {
-    display: flex;
-    gap: 8px;
-    background: var(--bg-card);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 6px;
-    box-shadow: 0 8px 32px var(--shadow-light);
-}
-
-.lang-btn {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    font-family: 'Alexandria', sans-serif;
-    font-size: 0.85em;
-    font-weight: 600;
-    color: var(--text-muted);
-    transition: all var(--transition-normal);
-    position: relative;
-    overflow: hidden;
-}
-
-.lang-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-accent);
-    transform: scale(0);
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-    z-index: -1;
-}
-
-.lang-btn:hover::before {
-    transform: scale(1);
-}
-
-.lang-btn:hover {
-    color: white;
-    transform: translateY(-2px) scale(1.1);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-}
-
-.lang-btn.active {
-    background: var(--gradient-accent);
-    color: white;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
-}
-
-.lang-btn.active::before {
-    transform: scale(1);
-}
-
-.lang-btn:active {
-    transform: scale(0.95);
-}
-
-.lang-text {
-    font-weight: 700;
-    letter-spacing: 0.5px;
 }
 
 /* Theme Toggle */
@@ -498,6 +403,7 @@ body[data-lang="en"] .content[data-lang="en"] {
     cursor: pointer;
     flex: 0 1 calc(25% - var(--space-lg));
     min-width: 150px;
+    max-width: 200px;
 }
 
 .stat-card::before {
@@ -570,11 +476,6 @@ body[data-lang="en"] .content[data-lang="en"] {
     box-shadow: 0 20px 60px var(--shadow-medium);
 }
 
-/* Ensure RTL doesn't affect slider internals */
-[data-lang="ar"] .portfolio-slider {
-    direction: ltr;
-}
-
 .slider-track {
     position: relative;
     width: 100%;
@@ -601,7 +502,6 @@ body[data-lang="en"] .content[data-lang="en"] {
     box-shadow: 0 15px 40px var(--shadow-medium);
     backface-visibility: hidden;
     will-change: transform, opacity, filter;
-    /* Center all slides initially */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -655,11 +555,6 @@ body[data-lang="en"] .content[data-lang="en"] {
     padding: 0 var(--space-lg);
     pointer-events: none;
     z-index: 20;
-}
-
-/* Keep navigation buttons in correct positions for Arabic */
-[data-lang="ar"] .slider-navigation {
-    direction: ltr;
 }
 
 .nav-btn {
@@ -1166,14 +1061,10 @@ body[data-lang="en"] .content[data-lang="en"] {
 }
 
 .service-item:hover {
-    transform: translateX(12px);
+    transform: translateX(-12px);
     background: var(--bg-card-hover);
     border-color: var(--accent-primary);
     box-shadow: 0 15px 40px var(--shadow-medium);
-}
-
-body[data-lang="en"] .service-item:hover {
-    transform: translateX(-12px);
 }
 
 .service-icon {
@@ -1305,10 +1196,6 @@ body[data-lang="en"] .service-item:hover {
     transform: translateX(6px);
 }
 
-body[data-lang="en"] .cta-button:hover .cta-icon {
-    transform: translateX(-6px);
-}
-
 /* ===== FLOATING CONTACT ===== */
 .floating-contact {
     position: fixed;
@@ -1318,11 +1205,6 @@ body[data-lang="en"] .cta-button:hover .cta-icon {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-}
-
-body[data-lang="en"] .floating-contact {
-    left: var(--space-lg);
-    right: auto;
 }
 
 .contact-btn {
@@ -1397,11 +1279,6 @@ body[data-lang="en"] .floating-contact {
     .floating-contact {
         right: var(--space-md);
         bottom: var(--space-md);
-    }
-
-    body[data-lang="en"] .floating-contact {
-        left: var(--space-md);
-        right: auto;
     }
 
     .contact-btn {

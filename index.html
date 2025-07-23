@@ -19,7 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 <body data-lang="en" data-theme="dark">
@@ -37,25 +37,25 @@
 
     <div class="container">
         <!-- Hero Section - English -->
-        <section class="hero-section content" data-lang="en">
-            <div class="hero-content">
-                <div class="profile-container">
-                    <div class="profile-ring"></div>
-                    <div class="profile-img">
-                        <img src="assets/images/profile.jpg" alt="Hossam Hamed" loading="eager" />
-                    </div>
-                </div>
-
-                <h1 class="main-title" id="nameTextEn">Hossam Hamed</h1>
-                <div class="static-text">Frontend & WordPress Developer</div>
-
-                <p class="hero-description">
-                    Frontend & WordPress Developer specialized in transforming ideas into professional websites and
-                    e-commerce stores. I help businesses and individuals build their digital presence through innovative
-                    and responsive technical solutions.
-                </p>
+      <section class="hero-section content" data-lang="en">
+    <div class="hero-content">
+        <div class="profile-container">
+            <div class="profile-ring"></div>
+            <div class="profile-img">
+                <img src="assets/images/profile.jpg" alt="Hossam Hamed" loading="eager" />
             </div>
-            <script>
+        </div>
+
+        <h1 class="main-title" id="nameTextEn">Hossam Hamed</h1>
+        <div class="static-text">Frontend & WordPress Developer</div>
+
+        <p class="hero-description">
+            Frontend & WordPress Developer specialized in transforming ideas into professional websites and
+            e-commerce stores. I help businesses and individuals build their digital presence through innovative
+            and responsive technical solutions.
+        </p>
+    </div>
+    <script>
     fetch('https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/bannerone?slug=Banner1')
         .then(response => response.json())
         .then(data => {
@@ -110,73 +110,130 @@
     }
 </script>
 
-        </section>
+</section>
+
 
         <!-- About Section - English -->
-        <section class="content-section content" data-lang="en">
-            <h2 class="section-title">My Expertise & Experience</h2>
-            <div class="cards-grid">
-                <div class="glass-card">
-                    <div class="card-icon">🎨</div>
-                    <h3 class="card-title">Frontend Development</h3>
-                    <p class="card-description">
-                        Specialized in frontend development using HTML5, CSS3, JavaScript and the latest libraries.
-                        I focus on creating smooth and responsive user experiences across all devices and browsers.
-                    </p>
-                    <div class="card-tech">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Bootstrap</span>
-                        <span class="tech-tag">Tailwind</span>
-                        <span class="tech-tag">GSAP</span>
-                    </div>
-                </div>
-
-                <div class="glass-card">
-                    <div class="card-icon">⚙️</div>
-                    <h3 class="card-title">WordPress Development</h3>
-                    <p class="card-description">
-                        Expert in developing and customizing WordPress websites from scratch, creating custom templates,
-                        and developing plugins that meet unique client needs.
-                    </p>
-                    <div class="card-tech">
-                        <span class="tech-tag">Custom Themes</span>
-                        <span class="tech-tag">Plugins</span>
-                        <span class="tech-tag">WooCommerce</span>
-                        <span class="tech-tag">REST API</span>
-                    </div>
-                </div>
-
-                <div class="glass-card">
-                    <div class="card-icon">🛒</div>
-                    <h3 class="card-title">E-commerce Solutions</h3>
-                    <p class="card-description">
-                        I develop professional e-commerce stores on multiple platforms with payment system integration,
-                        inventory management, and conversion rate optimization to increase sales.
-                    </p>
-                    <div class="card-tech">
-                        <span class="tech-tag">WooCommerce</span>
-                        <span class="tech-tag">Shopify</span>
-                        <span class="tech-tag">Salla</span>
-                        <span class="tech-tag">Zid</span>
-                    </div>
-                </div>
-
-                <div class="glass-card">
-                    <div class="card-icon">🚀</div>
-                    <h3 class="card-title">Performance & Animation</h3>
-                    <p class="card-description">
-                        I optimize website performance for faster loading times and add advanced animations and visual
-                        effects to enhance user experience and make websites more interactive and attractive.
-                    </p>
-                    <div class="card-tech">
-                        <span class="tech-tag">GSAP Animations</span>
-                        <span class="tech-tag">CSS Animations</span>
-                        <span class="tech-tag">Performance</span>
-                        <span class="tech-tag">Optimization</span>
-                    </div>
-                </div>
+     <section class="content-section content" data-lang="en">
+    <h2 class="section-title">My Expertise & Experience</h2>
+    <div class="cards-grid">
+        <div class="glass-card">
+            <div class="card-icon">🎨</div>
+            <h3 class="card-title">Frontend Development</h3>
+            <p class="card-description">
+                Specialized in frontend development using HTML5, CSS3, JavaScript and the latest libraries.
+                I focus on creating smooth and responsive user experiences across all devices and browsers.
+            </p>
+            <div class="card-tech">
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">Bootstrap</span>
+                <span class="tech-tag">Tailwind</span>
+                <span class="tech-tag">GSAP</span>
             </div>
-        </section>
+        </div>
+
+        <div class="glass-card">
+            <div class="card-icon">⚙️</div>
+            <h3 class="card-title">WordPress Development</h3>
+            <p class="card-description">
+                Expert in developing and customizing WordPress websites from scratch, creating custom templates,
+                and developing plugins that meet unique client needs.
+            </p>
+            <div class="card-tech">
+                <span class="tech-tag">Custom Themes</span>
+                <span class="tech-tag">Plugins</span>
+                <span class="tech-tag">WooCommerce</span>
+                <span class="tech-tag">REST API</span>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="card-icon">🛒</div>
+            <h3 class="card-title">E-commerce Solutions</h3>
+            <p class="card-description">
+                I develop professional e-commerce stores on multiple platforms with payment system integration,
+                inventory management, and conversion rate optimization to increase sales.
+            </p>
+            <div class="card-tech">
+                <span class="tech-tag">WooCommerce</span>
+                <span class="tech-tag">Shopify</span>
+                <span class="tech-tag">Salla</span>
+                <span class="tech-tag">Zid</span>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">Performance & Animation</h3>
+            <p class="card-description">
+                I optimize website performance for faster loading times and add advanced animations and visual
+                effects to enhance user experience and make websites more interactive and attractive.
+            </p>
+            <div class="card-tech">
+                <span class="tech-tag">GSAP Animations</span>
+                <span class="tech-tag">CSS Animations</span>
+                <span class="tech-tag">Performance</span>
+                <span class="tech-tag">Optimization</span>
+            </div>
+        </div>
+    </div>
+    <script>
+    fetch('https://lightgreen-bee-340667.hostingersite.com/wp-json/wp/v2/sec2?slug=section2')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data[0]?.acf) {
+                const sectionData = data[0].acf;
+
+                // بيانات البطاقات
+                const cardData = [
+                    {
+                        icon: sectionData.card_icon1 || '🎨',  // وضع رمز افتراضي إذا كان فارغًا
+                        title: sectionData.card_title_1 || 'Frontend Development',  // وضع عنوان افتراضي
+                        description: sectionData.card_description1 || 'Specialized in frontend development...',
+                        techs: sectionData.cardtech1 ? sectionData.cardtech1.split(',') : ['JavaScript', 'Bootstrap'],  // وضع تقنيات افتراضية
+                    },
+                    {
+                        icon: sectionData.card_icon2 || '⚙️',  // وضع رمز افتراضي
+                        title: sectionData.card_title_2 || 'WordPress Development',
+                        description: sectionData.card_description2 || 'Expert in developing and customizing...',
+                        techs: sectionData.cardtech2 ? sectionData.cardtech2.split(',') : ['Custom Themes', 'Plugins'],
+                    }
+                ];
+
+                // تحديث البيانات في الصفحة
+                document.querySelectorAll('.glass-card').forEach((card, index) => {
+                    const { icon, title, description, techs } = cardData[index];
+
+                    // تحديث الرمز
+                    card.querySelector('.card-icon').textContent = icon;
+
+                    // تحديث العنوان
+                    card.querySelector('.card-title').textContent = title;
+
+                    // تحديث الوصف
+                    card.querySelector('.card-description').textContent = description;
+
+                    // تحديث التقنيات
+                    const techContainer = card.querySelector('.card-tech');
+                    techContainer.innerHTML = ''; // مسح التاغات القديمة
+                    techs.forEach(tech => {
+                        const techTag = document.createElement('span');
+                        techTag.classList.add('tech-tag');
+                        techTag.textContent = tech.trim();
+                        techContainer.appendChild(techTag);
+                    });
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching expertise data:', error);
+        });
+</script>
+</section>
+
+
+
+
 
         <!-- Skills and Platforms Section - English -->
         <section class="content-section content" data-lang="en">
@@ -388,7 +445,7 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
 </body>
 
 </html>
